@@ -5,7 +5,8 @@ using proyectef;
 var builder = WebApplication.CreateBuilder(args);
 
 //Asociamos el conexto a uno de base de datos en memoria
-builder.Services.AddDbContext<TareasContext>(p => p.UseInMemoryDatabase("TareasDB"));
+//builder.Services.AddDbContext<TareasContext>(p => p.UseInMemoryDatabase("TareasDB"));
+builder.Services.AddSqlServer<TareasContext>("Data source= DESKTOP-O0FRJBC\\SQLEXPRESSDEV;Initial Catalog=TareasDB;user id=sa; password=123456");
 
 var app = builder.Build();
 

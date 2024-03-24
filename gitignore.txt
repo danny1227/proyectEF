@@ -1,1 +1,4 @@
-/obj/
+#ignorar los archivos de compilacion
+obj/
+bin/
+obj/debug/

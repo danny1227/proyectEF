@@ -36,9 +36,7 @@ public class TareasContext: DbContext
             //primary key
             tarea.HasKey(p => p.TareaId);
             //foreign key  
-            tarea.HasOne(p=> p.Categoria)
-                .WithMany(p => p.Tareas)
-                .HasForeignKey(p => p.CategoriaId);
+            tarea.HasOne(p=> p.Categoria).WithMany(p => p.Tareas).HasForeignKey(p => p.CategoriaId);
             //properties
             tarea.Property(p => p.Titulo).IsRequired().HasMaxLength(200);
             tarea.Property(p => p.Descripcion).IsRequired();

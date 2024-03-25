@@ -11,14 +11,25 @@ public class TareasContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelbuilder)
     {
+        List<Categoria> categoriasInit = new List<Categoria>();
+        categoriasInit.Add( new Categoria() { CategoriaID = Guid.Parse("9d4a9853-31fa-4db3-95ed-6fbac352d076"), nombre = "Hogar", descripcion = "Categoria de tareas de hogar", esfuerzo = 2, etiqueta = 0});
+        categoriasInit.Add( new Categoria() { CategoriaID = Guid.Parse("9d4a9853-31fa-4db3-95ed-6fbac352d078"), nombre = "Salud", descripcion = "Actividades personales", esfuerzo = 5, etiqueta = 0});
+
         modelbuilder.Entity<Categoria>(categoria => 
         {
             categoria.ToTable("Categoria");
             categoria.HasKey(p => p.CategoriaID);
             categoria.Property(p=> p.nombre).IsRequired().HasMaxLength(150);
             categoria.Property(p=> p.descripcion);
+            categoria.Property(p=>p.esfuerzo);
+            categoria.Property(p => p.etiqueta);
 
+            categoria.HasData(categoriasInit);
         });
+
+        List<Tarea> tareasInit = new List<Tarea>();
+
+        tareasInit.Add(new Tarea() {TareaId = Guid.Parse("49ed54c2-b624-4974-96db-8d7caec5a82e"), CategoriaId = Guid.Parse("9d4a9853-31fa-4db3-95ed-6fbac352d076"), Titulo = "Realizar haceo", Descripcion = "Realizar tareas de hogar", PrioridadTarea = Prioridad.Baja, FechaCreacion = DateTime.Now});
 
         modelbuilder.Entity<Tarea>(tarea => {
             tarea.ToTable("Tarea");
@@ -34,6 +45,8 @@ public class TareasContext: DbContext
             tarea.Property(p => p.PrioridadTarea);
             tarea.Property(p => p.FechaCreacion);
             tarea.Ignore(p => p.Resumen);
+
+            tarea.HasData(tareasInit);
         });
 
     }
